@@ -6,6 +6,13 @@
 	"configurations": [
 		{
 			"type": "java",
+			"name": "AppUI",
+			"request": "launch",
+			"mainClass": "AppUI",
+			"projectName": "desafio-sudoku_a1d06789"
+		},
+		{
+			"type": "java",
 			"name": "Current File",
 			"request": "launch",
 			"mainClass": "${file}"
