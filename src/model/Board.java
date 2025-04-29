@@ -30,20 +30,20 @@ public class Board {
 
         // 1) .flatMap() acessa as listas internas de uma lista pai;
         // 2) Collection::stream retorna todos os itens da lista (square -> square);
-        Stream<Square> collection = squares.stream().flatMap(Collection::stream);
-
         // 3) .noneMatch() percorre toda a coleção e retorna TRUE se TODOS os itens
         // NÃO correspondem à condição: se os valores não são fixos e não-nulos.
         // OBS: O jogo não começou se existem apenas valores nulos e fixos na lista.
         // Valores fixos são os números iniciais do tabuleiro. O restante são nulos.
-        if (collection.noneMatch(square -> !square.isFixed() && nonNull(square.getActual()))) {
+        if (squares.stream().flatMap(Collection::stream)
+                .noneMatch(square -> !square.isFixed() && nonNull(square.getActual()))) {
             return NON_STARTED;
         }
         // A partir daqui temos apenas duas condições: Incompleto ou completo.
         // 4) .anyMatch() percorre toda a coleção e retorna TRUE se ALGUM dos itens
         // correspondem à condição: se algum dos valores ainda é nulo (jogo incompleto).
         // Se todos os itens estiverem preenchidos o jogo está completo.
-        return collection.anyMatch(square -> isNull(square.getActual())) ? INCOMPLETE : COMPLETE;
+        return squares.stream().flatMap(Collection::stream).anyMatch(square -> isNull(square.getActual())) ? INCOMPLETE
+                : COMPLETE;
     }
 
     /**
