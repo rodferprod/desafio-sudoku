@@ -8,12 +8,18 @@ import java.awt.Dimension;
 import java.awt.Font;
 
 import static java.awt.Font.PLAIN;
+import static service.ReverseEvent.CLEAR_TEXT_FIELD;
 
+import service.EventListener;
 import model.Square;
+import service.ReverseEvent;
 
-public class Number extends JTextField {
+public class NumberText extends JTextField implements EventListener {
 
-    public Number(final Square square) {
+    private final Square square;
+
+    public NumberText(final Square square) {
+        this.square = square;
         Dimension dimension = new Dimension(50, 50);
         this.setSize(dimension);
         this.setPreferredSize(dimension);
@@ -30,6 +36,8 @@ public class Number extends JTextField {
         // Atribuindo um evento ao text field
         this.getDocument().addDocumentListener(new DocumentListener() {
 
+            // Alterando os valores armazenados (squares)
+            // de acordo com o valor do text field
             private void changeSquare() {
                 // Se o conteúdo do text field for apagado...
                 if (getText().isEmpty()) {
@@ -57,5 +65,12 @@ public class Number extends JTextField {
             }
 
         });
+    }
+
+    @Override
+    public void update(final ReverseEvent eventType) {
+        if (eventType.equals(CLEAR_TEXT_FIELD) && this.isEnabled()) {
+            this.setText("");
+        }
     }
 }

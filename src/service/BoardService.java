@@ -41,6 +41,9 @@ public class BoardService {
         return board.getStatus();
     }
 
+    // Quando a alteração ocorre nos valores armazenados (squares) os text fields
+    // correspondentes na interface não são refletidos, sendo necessário criar um
+    // serviço de notificação para cumprir essa tarefa.
     public void resetGame() {
         board.resetGame();
     }
