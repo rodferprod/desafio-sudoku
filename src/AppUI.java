@@ -1,17 +1,18 @@
-import java.awt.Dimension;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
-import ui.custom.frame.MainFrame;
-import ui.custom.panels.SudokoTable;
+import ui.custom.screen.MainScreen;
 
 public class AppUI {
     public static void main(String[] args) {
-        Dimension dimension = new Dimension(600, 600);
-        JPanel sudokoTable = new SudokoTable(dimension);
-        JFrame mainFrame = new MainFrame(dimension, sudokoTable);
-        mainFrame.revalidate();
-        mainFrame.repaint();
+        final Map<String, String> positions = Stream.of(args)
+                .collect(
+                        Collectors.toMap(
+                                key -> key.split(";")[0],
+                                value -> value.split(";")[1]));
+
+        MainScreen mainScreen = new MainScreen(positions);
+        mainScreen.buildMainScreen();
     }
 }
